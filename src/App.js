@@ -17,8 +17,9 @@ function App() {
     const wagerAmount = betFraction * bankroll
     const finalBankroll =
       bankroll *
-      (1 + (betFraction * payoff - 1) * probability - (1 - probability)) **
-        instances
+      (1 + betFraction * (payoff - 1) * probability - (1 - betFraction)) **
+        instances *
+      (1 - betFraction) ** instances
 
     setResult(
       `Bet ${betFraction.toFixed(
