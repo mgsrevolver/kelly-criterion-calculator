@@ -3,7 +3,7 @@ import './style.css'
 
 function App() {
   const [bankroll, setBankroll] = useState(100)
-  const [payoff, setPayoff] = useState(2)
+  const [payoff, setPayoff] = useState(1)
   const [probability, setProbability] = useState(0.6)
   const [instances, setInstances] = useState(1)
   const [result, setResult] = useState('')
