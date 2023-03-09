@@ -13,13 +13,12 @@ function App() {
 
     const f = (payoff * probability - (1 - probability)) / payoff
     const betFraction = Math.min(f, 1)
+    console.log(betFraction)
 
     const wagerAmount = betFraction * bankroll
-    const finalBankroll =
-      bankroll *
-      (1 + betFraction * (payoff - 1) * probability - (1 - betFraction)) **
-        instances *
-      (1 - betFraction) ** instances
+    const expectedGrowthRate = 1 + betFraction * probability
+    console.log(expectedGrowthRate)
+    const finalBankroll = bankroll * expectedGrowthRate ** instances
 
     setResult(
       `Bet ${betFraction.toFixed(
