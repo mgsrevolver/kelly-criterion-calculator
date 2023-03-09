@@ -5,7 +5,7 @@ function App() {
   const [bankroll, setBankroll] = useState(100)
   const [payoff, setPayoff] = useState(1)
   const [probability, setProbability] = useState(0.6)
-  const [instances, setInstances] = useState(1)
+  const [bets, setbets] = useState(1)
   const [result, setResult] = useState('')
 
   const handleSubmit = (event) => {
@@ -17,15 +17,15 @@ function App() {
 
     const wagerAmount = betFraction * bankroll
     const expectedGrowthRate = 1 + betFraction * probability
-    console.log(expectedGrowthRate)
-    const finalBankroll = bankroll * expectedGrowthRate ** instances
+    //console.log(expectedGrowthRate)
+    const finalBankroll = bankroll * expectedGrowthRate ** bets
 
     setResult(
       `Bet ${betFraction.toFixed(
         2
       )} of your bankroll per instance, starting with $${wagerAmount.toFixed(
         2
-      )} on the first bet. Your expected bankroll after ${instances} instances is $${finalBankroll.toFixed(
+      )} on the first bet. Your expected bankroll after ${bets} bet(s) is $${finalBankroll.toFixed(
         2
       )}.`
     )
@@ -56,7 +56,7 @@ function App() {
           required
         />
 
-        <label htmlFor="payoff">Payoff Ratio:</label>
+        <label htmlFor="payoff">Net Payout Odds (X:1):</label>
         <input
           type="number"
           id="payoff"
@@ -66,27 +66,25 @@ function App() {
           required
         />
 
-        <label htmlFor="probability">
-          Probability of Winning:
-          <input
-            type="text"
-            id="probability"
-            name="probability"
-            maxLength="4"
-            pattern="^[0-9]{1,3}%?$"
-            value={probabilityFormatted}
-            onChange={handleProbabilityChange}
-            required
-          />
-        </label>
+        <label htmlFor="probability">Probability of Winning:</label>
+        <input
+          type="text"
+          id="probability"
+          name="probability"
+          maxLength="4"
+          pattern="^[0-9]{1,3}%?$"
+          value={probabilityFormatted}
+          onChange={handleProbabilityChange}
+          required
+        />
 
-        <label htmlFor="instances">Number of Instances:</label>
+        <label htmlFor="bets">Number of Bets:</label>
         <input
           type="number"
-          id="instances"
-          name="instances"
-          value={instances}
-          onChange={(e) => setInstances(e.target.value)}
+          id="bets"
+          name="bets"
+          value={bets}
+          onChange={(e) => setbets(e.target.value)}
           required
         />
 
