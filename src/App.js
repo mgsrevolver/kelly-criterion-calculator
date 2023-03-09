@@ -15,12 +15,19 @@ function App() {
     const betFraction = Math.min(f, 1)
 
     const wagerAmount = betFraction * bankroll
+    const finalBankroll =
+      bankroll *
+      (1 + (betFraction * payoff - 1) * probability - (1 - probability)) **
+        instances
+
     setResult(
       `Bet ${betFraction.toFixed(
         2
       )} of your bankroll per instance, starting with $${wagerAmount.toFixed(
         2
-      )} on the first bet.`
+      )} on the first bet. Your expected bankroll after ${instances} instances is $${finalBankroll.toFixed(
+        2
+      )}.`
     )
   }
 
