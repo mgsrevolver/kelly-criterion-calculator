@@ -17,13 +17,13 @@ function App() {
 
     const wagerAmount = betFraction * bankroll
     const expectedGrowthRate = 1 + betFraction * probability
-    //console.log(expectedGrowthRate)
+    console.log(expectedGrowthRate)
     const finalBankroll = bankroll * expectedGrowthRate ** bets
 
     setResult(
-      `Bet ${betFraction.toFixed(
-        2
-      )} of your bankroll per instance, starting with $${wagerAmount.toFixed(
+      `Bet ${(betFraction * 100).toFixed(
+        0
+      )}% of your bankroll per instance, starting with $${wagerAmount.toFixed(
         2
       )} on the first bet. Your expected bankroll after ${bets} bet(s) is $${finalBankroll.toFixed(
         2
@@ -48,11 +48,13 @@ function App() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="bankroll">Starting Bankroll:</label>
         <input
-          type="number"
+          type="text"
           id="bankroll"
           name="bankroll"
-          value={bankroll}
-          onChange={(e) => setBankroll(e.target.value)}
+          value={`$${bankroll}`}
+          onChange={(e) =>
+            setBankroll(parseFloat(e.target.value.replace('$', '')))
+          }
           required
         />
 
