@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import './style.css'
 
 function App() {
-  const [bankroll, setBankroll] = useState('')
-  const [payoff, setPayoff] = useState('')
-  const [probability, setProbability] = useState('')
-  const [instances, setInstances] = useState('')
+  const [bankroll, setBankroll] = useState(100)
+  const [payoff, setPayoff] = useState(2)
+  const [probability, setProbability] = useState(0.6)
+  const [instances, setInstances] = useState(1)
   const [result, setResult] = useState('')
 
   const handleSubmit = (event) => {
@@ -25,10 +25,15 @@ function App() {
   }
 
   const handleProbabilityChange = (e) => {
-    const inputValue = e.target.value
+    const inputValue = e.target.value.replace('%', '')
     const percentageValue = parseFloat(inputValue) / 100
-    setProbability(percentageValue)
+    if (!isNaN(percentageValue)) {
+      setProbability(percentageValue)
+    }
   }
+
+  const probabilityNumber = parseFloat(probability)
+  const probabilityFormatted = (probabilityNumber * 100).toFixed(0) + '%'
 
   return (
     <div className="container">
@@ -54,17 +59,19 @@ function App() {
           required
         />
 
-        <label htmlFor="probability">Probability of Winning:</label>
-        <input
-          type="text"
-          id="probability"
-          name="probability"
-          maxLength="3"
-          pattern="[0-9]{1,3}"
-          value={`${probability * 100}%`}
-          onChange={handleProbabilityChange}
-          required
-        />
+        <label htmlFor="probability">
+          Probability of Winning:
+          <input
+            type="text"
+            id="probability"
+            name="probability"
+            maxLength="4"
+            pattern="^[0-9]{1,3}%?$"
+            value={probabilityFormatted}
+            onChange={handleProbabilityChange}
+            required
+          />
+        </label>
 
         <label htmlFor="instances">Number of Instances:</label>
         <input
