@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/kellycalc/static/css/main.51f156c4.css",
+    "main.js": "/kellycalc/static/js/main.f7c0d5f0.js",
+    "index.html": "/kellycalc/index.html",
+    "main.51f156c4.css.map": "/kellycalc/static/css/main.51f156c4.css.map",
+    "main.f7c0d5f0.js.map": "/kellycalc/static/js/main.f7c0d5f0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.51f156c4.css",
+    "static/js/main.f7c0d5f0.js"
+  ]
+}
