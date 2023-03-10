@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import BankrollChart from './Chart'
 import './style.css'
 
 function App() {
@@ -14,8 +15,8 @@ function App() {
     const f = (payoff * probability - (1 - probability)) / payoff
     const betFraction = Math.min(f, 1)
     const wagerAmount = betFraction * bankroll
-    const expectedGrowthRate = 1 + betFraction * probability
-    const finalBankroll = bankroll * expectedGrowthRate ** bets
+    const finalGrowthRate = 1 + betFraction * probability
+    const finalBankroll = bankroll * finalGrowthRate ** bets
 
     if (betFraction <= 0) {
       setResult(
@@ -40,6 +41,11 @@ function App() {
       setProbability(percentageValue)
     }
   }
+
+  const finalGrowthRate =
+    1 +
+    Math.min((payoff * probability - (1 - probability)) / payoff, 1) *
+      probability
 
   const probabilityNumber = parseFloat(probability)
   const probabilityFormatted = (probabilityNumber * 100).toFixed(0) + '%'
@@ -106,6 +112,16 @@ function App() {
       </form>
 
       <div id="result">{result}</div>
+      <div>
+        <h3>Bankroll Visualization</h3>
+        <BankrollChart
+          bankroll={bankroll}
+          payoff={payoff}
+          probability={probability}
+          bets={bets}
+          growthRate={finalGrowthRate}
+        />
+      </div>
     </div>
   )
 }
