@@ -13,22 +13,24 @@ function App() {
 
     const f = (payoff * probability - (1 - probability)) / payoff
     const betFraction = Math.min(f, 1)
-    console.log(betFraction)
-
     const wagerAmount = betFraction * bankroll
     const expectedGrowthRate = 1 + betFraction * probability
-    console.log(expectedGrowthRate)
     const finalBankroll = bankroll * expectedGrowthRate ** bets
 
-    setResult(
-      `Bet ${(betFraction * 100).toFixed(
-        0
-      )}% of your bankroll per instance, starting with $${wagerAmount.toFixed(
-        2
-      )} on the first bet. Your expected bankroll after ${bets} bet(s) is $${finalBankroll.toFixed(
-        2
-      )}.`
-    )
+    if (betFraction <= 0) {
+      setResult(
+        'This bet has a negative EV. This calculator is only helpful for bet sizing in games where the player believes they have an edge.'
+      )
+    } else {
+      const roundedBetFraction = Math.round(betFraction * 100)
+      setResult(
+        `Bet ${roundedBetFraction}% of your bankroll per bet, starting with $${wagerAmount.toFixed(
+          2
+        )}. Your expected bankroll after ${bets} bet(s) is $${finalBankroll.toFixed(
+          2
+        )}.`
+      )
+    }
   }
 
   const handleProbabilityChange = (e) => {
@@ -45,6 +47,16 @@ function App() {
   return (
     <div className="container">
       <h1>Kelly Criterion Calculator</h1>
+      <p>
+        The Kelly Criterion is a formula used to determine the optimal bet size
+        based on an estimated probability of winning and net payout odds.
+      </p>
+      <p>
+        The calculator will recommend a bet size and provide an estimate of your
+        expected bankroll growth if you follow the recommended sizing for a
+        specified number of bets.
+      </p>
+
       <form onSubmit={handleSubmit}>
         <label htmlFor="bankroll">Starting Bankroll:</label>
         <input
