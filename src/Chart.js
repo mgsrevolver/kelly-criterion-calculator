@@ -31,10 +31,29 @@ function BankrollChart({ bankroll, bets, growthRate }) {
           x: {
             type: 'linear',
             position: 'bottom',
+            title: {
+              display: true,
+              text: 'Number of Bets',
+            },
           },
           y: {
             type: 'linear',
             position: 'left',
+            title: {
+              display: true,
+              text: 'Expected Bankroll Value',
+            },
+            ticks: {
+              callback: function (value, index, values) {
+                return (
+                  '$' +
+                  value.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })
+                )
+              },
+            },
           },
         },
       },
