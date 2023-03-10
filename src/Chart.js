@@ -1,18 +1,16 @@
 import React, { useEffect, useRef } from 'react'
 import Chart from 'chart.js/auto'
 
-function BankrollChart({ bankroll, bets }) {
+function BankrollChart({ bankroll, bets, growthRate }) {
   const chartRef = useRef(null)
 
   useEffect(() => {
-    const expectedGrowthRate = 1.02 // Replace with your own calculation
-
     const data = []
     let currentBankroll = bankroll
 
     for (let i = 0; i <= bets; i++) {
       data.push({ x: i, y: currentBankroll })
-      currentBankroll *= expectedGrowthRate
+      currentBankroll *= growthRate
     }
 
     const chart = new Chart(chartRef.current, {
@@ -43,7 +41,7 @@ function BankrollChart({ bankroll, bets }) {
     })
 
     return () => chart.destroy()
-  }, [bankroll, bets])
+  }, [bankroll, bets, growthRate])
 
   return <canvas ref={chartRef} />
 }

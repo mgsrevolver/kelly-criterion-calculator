@@ -116,8 +116,6 @@ function App() {
         <h3>Bankroll Visualization</h3>
         <BankrollChart
           bankroll={bankroll}
-          payoff={payoff}
-          probability={probability}
           bets={bets}
           growthRate={finalGrowthRate}
         />
